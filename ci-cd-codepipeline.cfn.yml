@@ -115,6 +115,8 @@ Resources:
           import json
           import boto3
           import requests
+          import logging
+          import cfnresponse
           def handler(event, context):
             response = {
               'Status': 'SUCCESS',
