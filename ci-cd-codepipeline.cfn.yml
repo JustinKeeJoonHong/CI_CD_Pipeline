@@ -114,7 +114,7 @@ Resources:
         S3Bucket: "myfsndstack-codepipelineartifactbucket-0py4zkryvtap"
         S3Key: "lambda.zip"
 
-      Handler: index.handler
+      Handler: domain_function.lambda_handler
       Role: !GetAtt CustomResourceLambdaExecutionRole.Arn
       Runtime: python3.12
       Timeout: 300
