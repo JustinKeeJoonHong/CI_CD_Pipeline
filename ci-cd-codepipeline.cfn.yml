@@ -159,6 +159,8 @@ Resources:
       ServiceToken: !GetAtt CustomResourceLambda.Arn
       KubectlRoleName: !Ref KubectlRoleName
       CodeBuildServiceRoleArn: !GetAtt CodeBuildServiceRole.Arn
+      VPC: !Ref VPCID
+      SubnetIds: !Join [",", !Ref SubnetIds]
     DependsOn:
       - CustomResourceLambda
       - CodeBuildServiceRole
