@@ -4,6 +4,11 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: EKSWSV1
 
 Parameters:
+  DomainName:
+    Type: String
+    Description: The name of the SageMaker Studio Domain.
+    Default: MySageMakerStudioDomain
+
   DefaultUserSettings:
     Description: "The default user settings for the SageMaker domain."
     Type: JSON
@@ -166,6 +171,7 @@ Resources:
       CodeBuildServiceRoleArn: !GetAtt CodeBuildServiceRole.Arn
       VPC: !Ref VPCID
       SubnetIds: !Join [",", !Ref SubnetIds]
+      DomainName: !Ref DomainName
     DependsOn:
       - CustomResourceLambda
       - CodeBuildServiceRole
