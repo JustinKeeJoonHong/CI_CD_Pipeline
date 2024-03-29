@@ -11,7 +11,7 @@ Parameters:
 
   DefaultUserSettings:
     Description: "The default user settings for the SageMaker domain."
-    Type: JSON
+    Type: String
     Default: '{"ExecutionRole":"arn:aws:iam::455536822887:role/aws-service-role/sagemaker.amazonaws.com/AWSServiceRoleForAmazonSageMakerNotebooks","SecurityGroups":["sg-0282b2b4c457e9ec3"],"SubnetIds":["subnet-0682391657ce75068","subnet-00454d9f15a739905"]}'
 
   VPCID:
