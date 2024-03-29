@@ -4,6 +4,14 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: EKSWSV1
 
 Parameters:
+  VPCID:
+    Description: "VPC ID where your resources will be deployed"
+    Type: "AWS::EC2::VPC::Id"
+
+  SubnetIds:
+    Description: "Subnets where your Lambda will be deployed"
+    Type: List<AWS::EC2::Subnet::Id>
+
   EksClusterName:
     Type: String
     Description: The name of the EKS cluster created
@@ -112,7 +120,7 @@ Resources:
     Properties:
       Code:
         S3Bucket: "myfsndstack-codepipelineartifactbucket-0py4zkryvtap"
-        S3Key: "lambda.zip"
+        S3Key: "Archive.zip"
 
       Handler: domain_function.lambda_handler
       Role: !GetAtt CustomResourceLambdaExecutionRole.Arn
