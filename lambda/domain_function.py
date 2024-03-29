@@ -56,8 +56,8 @@ def handle_update(event, context):
 
 
 def create_studio_domain(config):
-    vpc_id = config['VPC']
-    subnet_ids = config['SubnetIds']
+    vpc_id = config.get('VPC')
+    subnet_ids = config.get('SubnetIds', '').split(',')
     default_user_settings = config['DefaultUserSettings']
     domain_name = config['DomainName']
 
