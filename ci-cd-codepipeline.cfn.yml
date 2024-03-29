@@ -171,6 +171,7 @@ Resources:
       CodeBuildServiceRoleArn: !GetAtt CodeBuildServiceRole.Arn
       VPC: !Ref VPCID
       SubnetIds: !Join [",", !Ref SubnetIds]
+      DefaultUserSettings: !Ref DefaultUserSettings
       DomainName: !Ref DomainName
     DependsOn:
       - CustomResourceLambda

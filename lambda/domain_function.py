@@ -58,14 +58,14 @@ def handle_update(event, context):
 def create_studio_domain(config):
     vpc_id = config.get('VPC')
     subnet_ids = config.get('SubnetIds', '').split(',')
-    default_user_settings = config['DefaultUserSettings']
+    default_user_settings = json.loads(config['DefaultUserSettings'])
     domain_name = config['DomainName']
 
     response = client.create_domain(
         DomainName=domain_name,
         AuthMode='IAM',
         DefaultUserSettings=default_user_settings,
-        SubnetIds=subnet_ids.split(','),
+        SubnetIds=subnet_ids,
         VpcId=vpc_id
     )
 
