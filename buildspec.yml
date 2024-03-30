@@ -29,7 +29,8 @@ phases:
       - echo 'export PATH=$PWD/:$PATH' >> $HOME/.bashrc
       - echo `kubectl version --short --client`
       - python -m pip install --upgrade --force pip
-      - apt-get update --allow-unauthenticated
+      - sed -i '/dl.google.com\/linux\/chrome/d' /etc/apt/sources.list
+      - apt-get update || true
       - apt-get -y install jq
       - pip install --upgrade awscli
   pre_build:
