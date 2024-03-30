@@ -58,11 +58,15 @@ def handle_update(event, context):
 def create_studio_domain(config):
     vpc_id = config.get('VPCID')
     subnet_ids = config.get('SubnetIds')
-    default_user_settings = config.get('DefaultUserSettings')
+    default_user_settings = json.loads(config['DefaultUserSettings']) if isinstance(config['DefaultUserSettings'], str) else config['DefaultUserSettings']
 
-    if isinstance(default_user_settings, str):
-        default_user_settings = json.loads(default_user_settings)    
+    if isinstance(subnet_ids, str):
+        subnet_ids = subnet_ids.split(',')  
 
+
+    if not vpc_id:
+        raise ValueError("VPC ID must be provided")
+    
     response = client.create_domain(
         DomainName=config['DomainName'],
         AuthMode='IAM',
