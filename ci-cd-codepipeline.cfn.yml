@@ -150,7 +150,7 @@ Resources:
             except Exception as e:
               print(e)
               response['Status'] = 'FAILED'
-              response["Reason"] = "See the details in CloudWatch Log Stream: " + context.log_stream_name
+              response["Reason"] = str(e)
               response['Data'] = {"Message": "Resource creation failed"}
               cfnresponse.send(event, context, cfnresponse.FAILED, response, context.log_stream_name)
               return
@@ -161,7 +161,7 @@ Resources:
               put_response = requests.put(event['ResponseURL'], headers=headers, data=json.dumps(response))
               put_response.raise_for_status()  
             except requests.exceptions.RequestException as e:
-              print(e)
+              print("Failed to send CloudFormation response: ", e)
 
       Handler: index.handler
       Role: !GetAtt CustomResourceLambdaExecutionRole.Arn
