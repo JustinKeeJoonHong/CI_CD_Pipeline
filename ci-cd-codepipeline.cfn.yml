@@ -115,7 +115,7 @@ Resources:
           import json
           import boto3
           import cfnresponse
-          from botocore.vendored import requests
+          import requests
           def handler(event, context):
             # This comment was added to force an update on this function's code
             response = {
