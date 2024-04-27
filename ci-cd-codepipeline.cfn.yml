@@ -150,13 +150,18 @@ Resources:
             except Exception as e:
               print(e)
               response['Status'] = 'FAILED'
-              response["Reason"] = e
+              response["Reason"] = "See the details in CloudWatch Log Stream: " + context.log_stream_name
               response['Data'] = {"Message": "Resource creation failed"}
+              cfnresponse.send(event, context, cfnresponse.FAILED, response, context.log_stream_name)
+              return
 
-            response_body = json.dumps(response)
-            headers = {'content-type': '', "content-length": str(len(response_body)) }
-            put_response = requests.put(event['ResponseURL'], headers=headers, data=response_body)
-            return response
+            
+            try:
+              headers = {'Content-Type': 'application/json'}
+              put_response = requests.put(event['ResponseURL'], headers=headers, data=json.dumps(response))
+              put_response.raise_for_status()  
+            except requests.exceptions.RequestException as e:
+              print(e)
 
       Handler: index.handler
       Role: !GetAtt CustomResourceLambdaExecutionRole.Arn
